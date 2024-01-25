@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/OmatProjektit/ReactCrashCourse/task-site/static/css/main.022ca120.css",
+    "main.js": "/OmatProjektit/ReactCrashCourse/task-site/static/js/main.0208ddc5.js",
+    "static/js/787.1532e0e7.chunk.js": "/OmatProjektit/ReactCrashCourse/task-site/static/js/787.1532e0e7.chunk.js",
+    "index.html": "/OmatProjektit/ReactCrashCourse/task-site/index.html",
+    "main.022ca120.css.map": "/OmatProjektit/ReactCrashCourse/task-site/static/css/main.022ca120.css.map",
+    "main.0208ddc5.js.map": "/OmatProjektit/ReactCrashCourse/task-site/static/js/main.0208ddc5.js.map",
+    "787.1532e0e7.chunk.js.map": "/OmatProjektit/ReactCrashCourse/task-site/static/js/787.1532e0e7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.022ca120.css",
+    "static/js/main.0208ddc5.js"
+  ]
+}
