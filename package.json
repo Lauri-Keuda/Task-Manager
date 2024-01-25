@@ -1,6 +1,6 @@
 {
   "name": "task-site",
-  "homepage": "https://Lauri-Keuda.github.io/OmatProjektit/ReactCrashCourse/task-site/",
+  "homepage": "https://Lauri-Keuda.github.io/Task-Manager",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
