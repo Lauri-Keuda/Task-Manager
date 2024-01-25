@@ -6,7 +6,7 @@ const About = () => {
       <div className="about-container">
         <h2>About this</h2>
         <p>This is task tracker created by me. I created this as a practice project to learn react.</p>
-        <Link className="link" to="/">← Back</Link>
+        <Link className="link" to="/Task-Manager">← Back</Link>
       </div>
     </div>
   )

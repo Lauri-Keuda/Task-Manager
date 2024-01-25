@@ -1,7 +1,7 @@
 const Header = () => {
   return (
     <header className="header">
-      <h3>Task site</h3>
+      <h3>Task manager</h3>
     </header>
   )
 }

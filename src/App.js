@@ -76,33 +76,32 @@ function App() {
         <Header />
         <Siderbar onAdd={addTask}/>
 
-          <Routes>
-            <Route path="/"
-              exact
-              element={
-                <>
-                  <div className="container">
-                    <div className="tasks-container">
-                      {tasks.length > 0 ? (
-                        <Tasks
-                        tasks={tasks}
-                        onDoubleClick={toggleReminder}
-                        onDelete={deleteTask}
-                        />
-                      ) : (
-                        <div className="no-tasks">
-                          <h4>No tasks to show</h4>
-                        </div>
-                      )}
-                    </div>
+        <Routes>
+          <Route path="/Task-Manager"
+            element={
+              <>
+                <div className="container">
+                  <div className="tasks-container">
+                    {tasks.length > 0 ? (
+                      <Tasks
+                      tasks={tasks}
+                      onDoubleClick={toggleReminder}
+                      onDelete={deleteTask}
+                      />
+                    ) : (
+                      <div className="no-tasks">
+                        <h4>No tasks to show</h4>
+                      </div>
+                    )}
                   </div>
-                </>
-              }
-            />
-            <Route path="/about"
-              Component={About}
-            />
-          </Routes>
+                </div>
+              </>
+            }
+          />
+          <Route path="/About"
+            Component={About}
+          />
+        </Routes>
 
         <Footer />
       </Router>
