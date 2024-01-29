@@ -2,56 +2,54 @@ import "./index.css"
 import Header from "./components/Header"
 import Siderbar from "./components/Siderbar"
 import Tasks from "./components/Tasks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import Footer from "./components/Footer";
 import About from "./components/About";
 
 
 function App() {
+  const [ tasks, setTasks ] = useState([])
 
-  const [ tasks, setTasks ] = useState([
-    {
-      id: "b",
-      name: "Lounas",
-      description: "Syö lounas oikeaan aikaan",
-      reminder: true
-    },
-    {
-      id: "a",
-      name: "Otsikko",
-      description: "Lisätietoja tehtävästä",
-      reminder: false
-    },
-    {
-      id: "c",
-      name: "Käy kaupassa",
-      description: "Käy kaupassa tekemässä ostokset",
-      reminder: false
-    },
-    {
-      id: "d",
-      name: "Do this task",
-      description: "This is important task! Dont forget to do this!",
-      reminder: true
-    },
-    {
-      id: "e",
-      name: "Add more tasks here",
-      description: "Add more example tasks here",
-      reminder: false
-    }
-  ])
+  useEffect(() => {
+    fetch('http://localhost:8081/tasks/')
+    .then(res => res.json())
+    .then(data => setTasks(data))
+    .catch(err => console.log(err));
+  }, [])
 
   //delete task
-  const deleteTask = (id) => {
+  const deleteTask = async (id) => {
     setTasks(
       tasks.filter((task) => task.id !== id)
     )
+
+    try {
+      //asetetaan id data objektiin
+      const data = {
+        id: id
+      }
+
+      const response = await fetch('http://localhost:8081/tasks/', {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
+
+      const result = await response.json;
+      console.log("Succeed:", result)
+    } catch (error){
+      console.error("Error:", error);
+    }
   }
 
+  //UPDATE `tasks` SET `reminder` = '1' WHERE `tasks`.`id` = 1;
   //toggle reminder
-  const toggleReminder = (id) => {
+  const toggleReminder = async (id) => {
     setTasks(
       tasks.map((task) => {
         if(task.id === id){
@@ -61,13 +59,75 @@ function App() {
         }
       })
     )
+
+    try  {
+      //selvitetään reminder
+      let reminderState;
+      tasks.map((task) => {
+        if(task.id === id){
+          reminderState = !task.reminder;
+          return task
+        } else {
+          return task
+        }
+      })
+
+      //asetetaan id ja reminder data objektiin
+      const data = {
+        id: id,
+        reminder: (reminderState ? '1' : '0')
+      }
+
+      const response = await fetch('http://localhost:8081/tasks/', {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data)
+      })
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
+
+      const result = await response.json;
+      console.log("Succeed:", result)
+    } catch (error) {
+      console.error("Error:", error)
+    }
   }
 
   //add task
-  const addTask = (task) => {
-    const id = Math.floor(Math.random() * 10000) + 1
+  const addTask = async (task) => {
+    /* const id = Math.floor(Math.random() * 10000) + 1
     const newTask = { id, ...task }
-    setTasks([...tasks, newTask])
+    setTasks([...tasks, newTask]) */
+
+    try {
+      //asetetaan id data objektiin
+      const data = {
+        name: task.name,
+        description: task.description,
+        reminder: task.reminder
+      }
+
+      const response = await fetch('http://localhost:8081/tasks/', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+      .then((res) => res.json())
+      .catch((err) => console.log(err));
+
+      const result = await response.json;
+
+      //tähän tulee fecht kysely serverille jolla saadaan task:in id joka asetetaan seuravalla rivillä -> { id, task... }
+      setTasks([...tasks, task]);
+
+      console.log("Succeed:", result)
+    } catch (error){
+      console.error("Error:", error);
+    }
   }
 
   return (
@@ -102,6 +162,27 @@ function App() {
             Component={About}
           />
         </Routes>
+
+          {/* <table>
+            <thead>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Reminder</th>
+            </thead>
+            <tbody>
+              {tasks.map((task, i) => {
+                return (
+                <tr key={i}>
+                  <td>{task.id}</td>
+                  <td>{task.name}</td>
+                  <td>{task.dascription}</td>
+                  <td>{task.reminder}</td>
+                </tr>
+                )
+              })}
+            </tbody>
+          </table> */}
 
         <Footer />
       </Router>
