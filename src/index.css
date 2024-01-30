@@ -231,7 +231,8 @@ footer {
 .about-container {
   border: 2px rgb(27, 27, 255) solid;
   border-radius: 10px;
-  margin: 30px 120px;
+  width: 500px;
+  margin: 30px auto;
   padding: 30px;
   background-color: dimgray;
 
